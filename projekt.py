@@ -38,27 +38,27 @@ def protsent(total):
     muuprotsent = (items["muu"] / total) * 360
     #PIECHART
     algus = 0
-    tahvel.create_arc(20,20,780,780, start = algus, extent =toiduaineprotsent , fill = "blue")
+    tahvel.create_arc(20,20,780,780, start = algus, extent =toiduaineprotsent , fill = "blue", outline = "blue")
     algus += toiduaineprotsent
-    tahvel.create_arc(20,20,780,780, start = algus, extent = riieteprotsent, fill = "orange")
+    tahvel.create_arc(20,20,780,780, start = algus, extent = riieteprotsent, fill = "orange", outline = "orange")
     algus += riieteprotsent
-    tahvel.create_arc(20,20,780,780, start = algus, extent = spordiprotsent, fill = "green")
+    tahvel.create_arc(20,20,780,780, start = algus, extent = spordiprotsent, fill = "green", outline = "green")
     algus += spordiprotsent
-    tahvel.create_arc(20,20,780,780, start = algus, extent = transpordiprotsent, fill = "yellow")
+    tahvel.create_arc(20,20,780,780, start = algus, extent = transpordiprotsent, fill = "yellow", outline = "yellow")
     algus += transpordiprotsent
-    tahvel.create_arc(20,20,780,780, start = algus, extent = restoraniprotsent, fill = "red")
+    tahvel.create_arc(20,20,780,780, start = algus, extent = restoraniprotsent, fill = "red", outline = "red")
     algus += restoraniprotsent
-    tahvel.create_arc(20,20,780,780, start = algus, extent = meelelahutusprotsent, fill = "cyan")
+    tahvel.create_arc(20,20,780,780, start = algus, extent = meelelahutusprotsent, fill = "cyan", outline = "cyan")
     algus += meelelahutusprotsent
-    tahvel.create_arc(20,20,780,780, start = algus, extent = alkoholiprotsent, fill = "magenta")
+    tahvel.create_arc(20,20,780,780, start = algus, extent = alkoholiprotsent, fill = "magenta", outline = "magenta")
     algus += alkoholiprotsent
-    tahvel.create_arc(20,20,780,780, start = algus, extent = teenusteprotsent, fill = "purple")
+    tahvel.create_arc(20,20,780,780, start = algus, extent = teenusteprotsent, fill = "purple", outline = "purple")
     algus += teenusteprotsent
-    tahvel.create_arc(20,20,780,780, start = algus, extent = koduprotsent, fill = "brown")
+    tahvel.create_arc(20,20,780,780, start = algus, extent = koduprotsent, fill = "brown", outline = "brown")
     algus += koduprotsent
-    tahvel.create_arc(20,20,780,780, start = algus, extent = muuprotsent, fill = "grey")
+    tahvel.create_arc(20,20,780,780, start = algus, extent = muuprotsent, fill = "grey", outline = "grey")
     #KESKOSA
-    tahvel.create_oval(üleminenurk, üleminenurk, aluminenurk, aluminenurk, fill = "white")
+    tahvel.create_oval(üleminenurk, üleminenurk, aluminenurk, aluminenurk, fill = "white", outline = "white")
     kulutused = tahvel.create_text(400,400, font = suur_font, text = total)
 
 ##########################################################################################################
@@ -161,9 +161,10 @@ nupp3.grid(column = 0, row = 3, padx=5, pady=5, sticky=(N,S,W,E))
 raam.columnconfigure(0, weight = 1)
 raam.rowconfigure(3, weight = 1)
 
+kodu = PhotoImage(file = "C:/Users/Sebastian/Documents/Kool/Programmeerimine/Projekt/kodu.gif")
 koduliitmine = partial(summa, "kodu")
-nupp4 = ttk.Button(raam, text="kodu", command=koduliitmine)
-nupp4.grid(column = 0, row = 4, padx=5, pady=5, sticky=(N,S,W,E))
+nupp4 = ttk.Button(raam, command=koduliitmine, image = kodu)
+nupp4.grid(column = 0, row = 4, padx=5, pady=5)
 raam.columnconfigure(0, weight = 1)
 raam.rowconfigure(4, weight = 1)
 
@@ -206,7 +207,7 @@ raam.rowconfigure(10, weight = 1)
 ##TAHVEL
 kõrgus = 800
 laius = 800
-tahvel = Canvas(raam, background = "green", height = kõrgus, width= laius)
+tahvel = Canvas(raam, background = "white", height = kõrgus, width= laius)
 tahvel.grid(column = 2, row = 1, padx= 5, pady=5, columnspan = 2, rowspan = 10, sticky = (N, S , W ,E))
 
 #KESKOSA
