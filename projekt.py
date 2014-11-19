@@ -163,7 +163,7 @@ raam.rowconfigure(3, weight = 1)
 
 kodu = PhotoImage(file = "C:/Users/Sebastian/Documents/Kool/Programmeerimine/Projekt/kodu.gif")
 koduliitmine = partial(summa, "kodu")
-nupp4 = ttk.Button(raam, command=koduliitmine, image = kodu)
+nupp4 = ttk.Button(raam, command=koduliitmine, image = kodu)    ##PROOVIPILT
 nupp4.grid(column = 0, row = 4, padx=5, pady=5)
 raam.columnconfigure(0, weight = 1)
 raam.rowconfigure(4, weight = 1)
@@ -241,6 +241,4 @@ aluminenurk = int(tahvel["width"])/2 + diameeter/2
 ##totalkokku.config(background = taust)
 total(items)
 raam.mainloop()
-
-
 
