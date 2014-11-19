@@ -59,7 +59,7 @@ def protsent(total):
     tahvel.create_arc(20,20,780,780, start = algus, extent = muuprotsent, fill = "grey", outline = "grey")
     #KESKOSA
     tahvel.create_oval(üleminenurk, üleminenurk, aluminenurk, aluminenurk, fill = "white", outline = "white")
-    kulutused = tahvel.create_text(400,400, font = suur_font, text = total)
+    kulutused = tahvel.create_text(400,400, font = suur_suur_font, text = total)
 
 ##########################################################################################################
 
@@ -81,11 +81,12 @@ raam.title("Finants kalkulaator")
 raam.configure(background = "white")
 
 ## RAAM
-taust = "white"
-suur_font= font.Font(family = "@DengXian", size = 32)
-väike_font=font.Font(family="@DengXian", size=24)
+suur_font= font.Font(family = "Microsoft JhengHei Light", size = 32)
+väike_font=font.Font(family="Microsoft JhengHei Light", size=24)
+suur_suur_font= font.Font(family = "Microsoft JhengHei Light", size = 40)
 
 #LABELID
+taust = "white"
 toiduainedkokku = ttk.Label(raam, text = toiduained, font =väike_font)
 sildid["toiduained"] = toiduainedkokku
 toiduainedkokku.grid(column= 1, row = 1)
