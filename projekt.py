@@ -11,8 +11,6 @@ def total(items):
     for key in items:
         if key != "id" and key != "userid":
             total += items[key]
-##    totalkokku["text"] = total
-    tahvel.itemconfigure(kulutused, text = total)
     protsent(total)
     
 
@@ -26,28 +24,44 @@ def summa(liidetav):
     
     
 def protsent(total):
-    toiduaineprotsent = (toiduained * 360) / total
-    riieteprotsent = (riided * 360) / total
-    spordiprotsent = (sport * 360) / total
-    transpordiprotsent = (transport * 360) / total
-    restoraniprotsent = (restoran * 360) / total
-    meelelahutusprotsent = (meelelahutus * 360) / total
-    alkoholiprotsent = (alkohol * 360) / total
-    teenusteprotsent = (teenused * 360) / total
-    koduprotsent = (kodu * 360) / total
-    muuprotsent = (muu * 360) / total
-##    #PIECHART
-##    tahvel.create_arc(20,20,780,780, start = 0, extent =toiduaineprotsent , fill = "blue")
-##    tahvel.create_arc(20,20,780,780, start = toiduaineprotsent, extent = riieteprotsent, fill = "orange")
-##    tahvel.create_arc(20,20,780,780, start = riieteprotsent, extent = spordiprotsent, fill = "green")
-##    tahvel.create_arc(20,20,780,780, start = spordiprotsent, extent = transpordiprotsent, fill = "yellow")
-##    tahvel.create_arc(20,20,780,780, start = transpordiprotsent, extent = restoraniprotsent, fill = "red")
-##    tahvel.create_arc(20,20,780,780, start = restoraniprotsent, extent = meelelahutusprotsent, fill = "black")
-##    tahvel.create_arc(20,20,780,780, start = meelelahutusprotsent, extent = alkoholiprotsent, fill = "pink")
-##    tahvel.create_arc(20,20,780,780, start = alkoholiprotsent, extent = teenusteprotsent, fill = "purple")
-##    tahvel.create_arc(20,20,780,780, start = teenusteprotsent, extent = koduprotsent, fill = "brown")
-##    tahvel.create_arc(20,20,780,780, start = koduprotsent, extent = muuprotsent, fill = "grey")
-    
+    #PROTSENTARVUTUS
+    tahvel.create_oval(üleminenurk, üleminenurk, aluminenurk, aluminenurk, fill = "white")
+    toiduaineprotsent = (items["toiduained"] / total) * 360
+    riieteprotsent = (items["riided"] / total) * 360 
+    spordiprotsent = (items["sport"] / total) * 360
+    transpordiprotsent = (items["transport"]/ total) * 360
+    restoraniprotsent = (items["restoran"] / total) * 360
+    meelelahutusprotsent = (items["meelelahutus"] / total) * 360
+    alkoholiprotsent = (items["alkohol"] / total) * 360
+    teenusteprotsent = (items["teenused"] / total) * 360
+    koduprotsent = (items["kodu"] / total) * 360
+    muuprotsent = (items["muu"] / total) * 360
+    #PIECHART
+    algus = 0
+    tahvel.create_arc(20,20,780,780, start = algus, extent =toiduaineprotsent , fill = "blue")
+    algus += toiduaineprotsent
+    tahvel.create_arc(20,20,780,780, start = algus, extent = riieteprotsent, fill = "orange")
+    algus += riieteprotsent
+    tahvel.create_arc(20,20,780,780, start = algus, extent = spordiprotsent, fill = "green")
+    algus += spordiprotsent
+    tahvel.create_arc(20,20,780,780, start = algus, extent = transpordiprotsent, fill = "yellow")
+    algus += transpordiprotsent
+    tahvel.create_arc(20,20,780,780, start = algus, extent = restoraniprotsent, fill = "red")
+    algus += restoraniprotsent
+    tahvel.create_arc(20,20,780,780, start = algus, extent = meelelahutusprotsent, fill = "cyan")
+    algus += meelelahutusprotsent
+    tahvel.create_arc(20,20,780,780, start = algus, extent = alkoholiprotsent, fill = "magenta")
+    algus += alkoholiprotsent
+    tahvel.create_arc(20,20,780,780, start = algus, extent = teenusteprotsent, fill = "purple")
+    algus += teenusteprotsent
+    tahvel.create_arc(20,20,780,780, start = algus, extent = koduprotsent, fill = "brown")
+    algus += koduprotsent
+    tahvel.create_arc(20,20,780,780, start = algus, extent = muuprotsent, fill = "grey")
+    #KESKOSA
+    tahvel.create_oval(üleminenurk, üleminenurk, aluminenurk, aluminenurk, fill = "white")
+    kulutused = tahvel.create_text(400,400, font = suur_font, text = total)
+
+##########################################################################################################
 
 toiduained = items["toiduained"]
 riided = items["riided"]
@@ -71,6 +85,7 @@ taust = "white"
 suur_font= font.Font(family = "@DengXian", size = 32)
 väike_font=font.Font(family="@DengXian", size=24)
 
+#LABELID
 toiduainedkokku = ttk.Label(raam, text = toiduained, font =väike_font)
 sildid["toiduained"] = toiduainedkokku
 toiduainedkokku.grid(column= 1, row = 1)
@@ -141,7 +156,7 @@ raam.columnconfigure(0, weight = 1)
 raam.rowconfigure(2, weight = 1)
 
 söögiliitmine = partial(summa, "restoran")
-nupp3 = ttk.Button(raam, text="restoransöömine", command = söögiliitmine)
+nupp3 = ttk.Button(raam, text="väljas söömine", command = söögiliitmine)
 nupp3.grid(column = 0, row = 3, padx=5, pady=5, sticky=(N,S,W,E))
 raam.columnconfigure(0, weight = 1)
 raam.rowconfigure(3, weight = 1)
@@ -194,19 +209,17 @@ laius = 800
 tahvel = Canvas(raam, background = "green", height = kõrgus, width= laius)
 tahvel.grid(column = 2, row = 1, padx= 5, pady=5, columnspan = 2, rowspan = 10, sticky = (N, S , W ,E))
 
-#PIECHART
-tahvel.create_arc(20,20,780,780, start = 0, extent =90, fill = "blue")
-tahvel.create_arc(20,20,780,780, start = 90, extent = 90, fill = "orange")
-tahvel.create_arc(20,20,780,780, start = 180, extent = 90, fill = "blue")
-tahvel.create_arc(20,20,780,780, start = 270, extent = 90, fill = "orange")
-
 #KESKOSA
-diameeter = 400
+diameeter = 600
 üleminenurk = int(tahvel["width"])/2 - diameeter/2
 aluminenurk = int(tahvel["width"])/2 + diameeter/2
-tahvel.create_oval(üleminenurk, üleminenurk, aluminenurk, aluminenurk, fill = "white")
 
-kulutused = tahvel.create_text(400,400, font = suur_font)
+
+
+
+##tahvel.create_oval(üleminenurk, üleminenurk, aluminenurk, aluminenurk, fill = "white")
+##
+##kulutused = tahvel.create_text(400,400, font = suur_font)
 
 
 ##toiduained_id = tahvel.create_text(text = str(toiduained))
@@ -228,5 +241,5 @@ kulutused = tahvel.create_text(400,400, font = suur_font)
 total(items)
 raam.mainloop()
 
-##PROOV
+
 
