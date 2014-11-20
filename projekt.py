@@ -243,3 +243,5 @@ aluminenurk = int(tahvel["width"])/2 + diameeter/2
 total(items)
 raam.mainloop()
 
+## PROOV
+
