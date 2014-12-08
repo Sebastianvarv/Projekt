@@ -37,8 +37,11 @@ def protsent(total):
     koduprotsent = (items["kodu"] / total) * 360
     muuprotsent = (items["muu"] / total) * 360
     #PIECHART
+
+    kaarealumine = 20
+    kaareülemine = kõrgus - kaarealumine
     algus = 0
-    tahvel.create_arc(20,20,780,780, start = algus, extent =toiduaineprotsent , fill = "blue", outline = "blue")
+    tahvel.create_arc(kaarealumine,kaarealumine,kaareülemine,kaareülemine, start = algus, extent =toiduaineprotsent , fill = "blue", outline = "blue")
     algus += toiduaineprotsent
     tahvel.create_arc(20,20,780,780, start = algus, extent = riieteprotsent, fill = "orange", outline = "orange")
     algus += riieteprotsent
@@ -144,64 +147,73 @@ raam.columnconfigure(0, weight = 1)
 raam.rowconfigure(11, weight = 1)
 
 ## NUPUD
+toidupilt = PhotoImage(file = "C:/Users/Sebastian/Documents/Kool/Programmeerimine/Projekt/ikoonid/Toit_80.gif")
 toiduliitmine = partial(summa, "toiduained")
-nupp1 = ttk.Button(raam, text="toiduained",command = toiduliitmine)
-nupp1.grid(column = 0, row = 1, padx=5, pady=5, sticky=(N,S,W,E))
+nupp1 = ttk.Button(raam, text="toiduained",command = toiduliitmine, image = toidupilt)
+nupp1.grid(column = 0, row = 1, padx=5, pady=5)
 raam.columnconfigure(0, weight = 1)
 raam.rowconfigure(1, weight = 1)
 
+autopilt = PhotoImage(file = "C:/Users/Sebastian/Documents/Kool/Programmeerimine/Projekt/ikoonid/auto_80.gif")
 transpordiliitmine = partial(summa, "transport")
-nupp2 = ttk.Button(raam, text="transport", command = transpordiliitmine)
-nupp2.grid(column = 0, row = 2, padx=5, pady=5, sticky=(N,S,W,E))
+nupp2 = ttk.Button(raam, text="transport", command = transpordiliitmine, image = autopilt)
+nupp2.grid(column = 0, row = 2, padx=5, pady=5)
 raam.columnconfigure(0, weight = 1)
 raam.rowconfigure(2, weight = 1)
 
+restoranipilt = PhotoImage(file = "C:/Users/Sebastian/Documents/Kool/Programmeerimine/Projekt/ikoonid/Restoran_80.gif")
 söögiliitmine = partial(summa, "restoran")
-nupp3 = ttk.Button(raam, text="väljas söömine", command = söögiliitmine)
-nupp3.grid(column = 0, row = 3, padx=5, pady=5, sticky=(N,S,W,E))
+nupp3 = ttk.Button(raam, text="väljas söömine", command = söögiliitmine, image = restoranipilt)
+nupp3.grid(column = 0, row = 3, padx=5, pady=5)
 raam.columnconfigure(0, weight = 1)
 raam.rowconfigure(3, weight = 1)
 
-kodu = PhotoImage(file = "C:/Users/Sebastian/Documents/Kool/Programmeerimine/Projekt/kodu.gif")
+kodupilt = PhotoImage(file = "C:/Users/Sebastian/Documents/Kool/Programmeerimine/Projekt/ikoonid/kodu_80.gif")
 koduliitmine = partial(summa, "kodu")
-nupp4 = ttk.Button(raam, command=koduliitmine, image = kodu)    ##PROOVIPILT
+nupp4 = ttk.Button(raam, command=koduliitmine, image = kodupilt)   
 nupp4.grid(column = 0, row = 4, padx=5, pady=5)
 raam.columnconfigure(0, weight = 1)
 raam.rowconfigure(4, weight = 1)
 
+spordipilt = PhotoImage(file = "C:/Users/Sebastian/Documents/Kool/Programmeerimine/Projekt/ikoonid/sport_80.gif")
 spordiliitmine = partial(summa, "sport")
-nupp5 = ttk.Button(raam, text="sport", command = spordiliitmine)
-nupp5.grid(column = 0, row = 5, padx=5, pady=5, sticky=(N,S,W,E))
+nupp5 = ttk.Button(raam, text="sport", command = spordiliitmine, image = spordipilt)
+nupp5.grid(column = 0, row = 5, padx=5, pady=5)
 raam.columnconfigure(0, weight = 1)
 raam.rowconfigure(5, weight = 1)
 
+teenustepilt = PhotoImage(file = "C:/Users/Sebastian/Documents/Kool/Programmeerimine/Projekt/ikoonid/teenused_80.gif")
 teenusteliitmine = partial(summa, "teenused")
-nupp6 = ttk.Button(raam, text="teenused", command = teenusteliitmine)
-nupp6.grid(column = 0, row = 6, padx=5, pady=5, sticky=(N,S,W,E))
+nupp6 = ttk.Button(raam, text="teenused", command = teenusteliitmine, image = teenustepilt)
+nupp6.grid(column = 0, row = 6, padx=5, pady=5)
 raam.columnconfigure(0, weight = 1)
 raam.rowconfigure(6, weight = 1)
 
+alkoholipilt = PhotoImage(file = "C:/Users/Sebastian/Documents/Kool/Programmeerimine/Projekt/ikoonid/Alkohol_80.gif")
 alkoholiliitmine = partial(summa, "alkohol")
-nupp7 = ttk.Button(raam, text="alkohol", command = alkoholiliitmine)
-nupp7.grid(column = 0, row = 7, padx=5, pady=5, sticky=(N,S,W,E))
+nupp7 = ttk.Button(raam, text="alkohol", command = alkoholiliitmine, image = alkoholipilt)
+nupp7.grid(column = 0, row = 7, padx=5, pady=5)
 raam.columnconfigure(0, weight = 1)
 raam.rowconfigure(7, weight = 1)
 
+meelelahutuspilt = PhotoImage(file = "C:/Users/Sebastian/Documents/Kool/Programmeerimine/Projekt/ikoonid/Meelelahutus_80.gif")
 meelelahutuseliitmine = partial(summa, "meelelahutus")
-nupp8 = ttk.Button(raam, text="meelelahutus", command = meelelahutuseliitmine)
-nupp8.grid(column = 0, row = 8, padx=5, pady=5, sticky=(N,S,W,E))
+nupp8 = ttk.Button(raam, text="meelelahutus", command = meelelahutuseliitmine, image = meelelahutuspilt)
+nupp8.grid(column = 0, row = 8, padx=5, pady=5)
 raam.columnconfigure(0, weight = 1)
 raam.rowconfigure(8, weight = 1)
 
+riietepilt = PhotoImage(file = "C:/Users/Sebastian/Documents/Kool/Programmeerimine/Projekt/ikoonid/Riided_80.gif")
 riieteliitmine = partial(summa, "riided")
-nupp9 = ttk.Button(raam, text="riided", command = riieteliitmine)
-nupp9.grid(column = 0, row = 9, padx=5, pady=5, sticky=(N,S,W,E))
+nupp9 = ttk.Button(raam, text="riided", command = riieteliitmine, image = riietepilt)
+nupp9.grid(column = 0, row = 9, padx=5, pady=5)
 raam.columnconfigure(0, weight = 1)
 raam.rowconfigure(9, weight = 1)
 
+muupilt = PhotoImage(file = "C:/Users/Sebastian/Documents/Kool/Programmeerimine/Projekt/ikoonid/muu_80.gif")
 muuliitmine = partial(summa, "muu")
-nupp10 = ttk.Button(raam, text="muu", command = muuliitmine)
-nupp10.grid(column = 0, row = 10, padx=5, pady=5, sticky=(N,S,W,E))
+nupp10 = ttk.Button(raam, text="muu", command = muuliitmine, image = muupilt)
+nupp10.grid(column = 0, row = 10, padx=5, pady=5)
 raam.columnconfigure(0, weight = 1)
 raam.rowconfigure(10, weight = 1)
 
