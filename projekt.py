@@ -41,28 +41,28 @@ def protsent(total):
     kaarealumine = 20
     kaareülemine = kõrgus - kaarealumine
     algus = 0
-    tahvel.create_arc(kaarealumine,kaarealumine,kaareülemine,kaareülemine, start = algus, extent =toiduaineprotsent , fill = "blue", outline = "blue")
+    tahvel.create_arc(kaarealumine,kaarealumine,kaareülemine,kaareülemine, start = algus, extent =toiduaineprotsent , fill = "#EB6B10", outline = "#EB6B10")
     algus += toiduaineprotsent
-    tahvel.create_arc(20,20,780,780, start = algus, extent = riieteprotsent, fill = "orange", outline = "orange")
+    tahvel.create_arc( kaarealumine, kaarealumine,kaareülemine,kaareülemine, start = algus, extent = riieteprotsent, fill = "#C6FA0C", outline = "#C6FA0C")
     algus += riieteprotsent
-    tahvel.create_arc(20,20,780,780, start = algus, extent = spordiprotsent, fill = "green", outline = "green")
+    tahvel.create_arc( kaarealumine, kaarealumine,kaareülemine,kaareülemine, start = algus, extent = spordiprotsent, fill = "#0CFAD2", outline = "#0CFAD2")
     algus += spordiprotsent
-    tahvel.create_arc(20,20,780,780, start = algus, extent = transpordiprotsent, fill = "yellow", outline = "yellow")
+    tahvel.create_arc( kaarealumine, kaarealumine,kaareülemine,kaareülemine, start = algus, extent = transpordiprotsent, fill = "#0D089E", outline = "#0D089E")
     algus += transpordiprotsent
-    tahvel.create_arc(20,20,780,780, start = algus, extent = restoraniprotsent, fill = "red", outline = "red")
+    tahvel.create_arc( kaarealumine, kaarealumine,kaareülemine,kaareülemine, start = algus, extent = restoraniprotsent, fill = "#FCFC47", outline = "#FCFC47")
     algus += restoraniprotsent
-    tahvel.create_arc(20,20,780,780, start = algus, extent = meelelahutusprotsent, fill = "cyan", outline = "cyan")
+    tahvel.create_arc( kaarealumine, kaarealumine,kaareülemine,kaareülemine, start = algus, extent = meelelahutusprotsent, fill = "#3A3940", outline = "#3A3940")
     algus += meelelahutusprotsent
-    tahvel.create_arc(20,20,780,780, start = algus, extent = alkoholiprotsent, fill = "magenta", outline = "magenta")
+    tahvel.create_arc( kaarealumine, kaarealumine,kaareülemine,kaareülemine, start = algus, extent = alkoholiprotsent, fill = "#C72626", outline = "#C72626")
     algus += alkoholiprotsent
-    tahvel.create_arc(20,20,780,780, start = algus, extent = teenusteprotsent, fill = "purple", outline = "purple")
+    tahvel.create_arc( kaarealumine, kaarealumine,kaareülemine,kaareülemine, start = algus, extent = teenusteprotsent, fill = "#8A059C", outline = "#8A059C")
     algus += teenusteprotsent
-    tahvel.create_arc(20,20,780,780, start = algus, extent = koduprotsent, fill = "brown", outline = "brown")
+    tahvel.create_arc( kaarealumine, kaarealumine,kaareülemine,kaareülemine, start = algus, extent = koduprotsent, fill = "#C78212", outline = "#C78212")
     algus += koduprotsent
-    tahvel.create_arc(20,20,780,780, start = algus, extent = muuprotsent, fill = "grey", outline = "grey")
+    tahvel.create_arc( kaarealumine, kaarealumine,kaareülemine,kaareülemine, start = algus, extent = muuprotsent, fill = "#0095FF", outline = "#0095FF")
     #KESKOSA
     tahvel.create_oval(üleminenurk, üleminenurk, aluminenurk, aluminenurk, fill = "white", outline = "white")
-    kulutused = tahvel.create_text(400,400, font = suur_suur_font, text = total)
+    kulutused = tahvel.create_text(kõrgus//2,laius//2, font = suur_suur_font, text = total)
 
 ##########################################################################################################
 
@@ -224,7 +224,7 @@ tahvel = Canvas(raam, background = "white", height = kõrgus, width= laius)
 tahvel.grid(column = 2, row = 1, padx= 5, pady=5, columnspan = 2, rowspan = 10, sticky = (N, S , W ,E))
 
 #KESKOSA
-diameeter = 600
+diameeter = kõrgus - 200
 üleminenurk = int(tahvel["width"])/2 - diameeter/2
 aluminenurk = int(tahvel["width"])/2 + diameeter/2
 
