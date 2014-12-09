@@ -3,22 +3,45 @@ from tkinter import ttk
 from tkinter import messagebox
 from tkinter import font
 from functools import partial
+import requests
+import json
+from datetime import datetime
+from datetime import timedelta
+from datetime import date
 
-items=  {"id":2, "userid": 1, "toiduained": 100, "riided": 110, "sport":120, "transport": 130, "restoran": 140, "meelelahutus": 150, "alkohol": 160, "teenused": 170, "kodu": 180, "muu": 190}
 
+kuupäev = "-".join(str(datetime.utcnow().date()).split("-")[::-1]) ## (dd,mm,yyyy)
+r = requests.get("http://ssbudgeting.herokuapp.com/api/v1.0/users/1/items", auth=("sten", "pass"))
+data = r.json()
+
+## requests.get("http://ssbudgeting.herokuapp.com/api/v1.0/users/1/items?date=09-12-2014", auth=("sten", "pass"))
+
+items =  {"toiduained": 0, "riided": 0, "sport": 0, "transport": 0, "restoran": 0, "meelelahutus": 0, "alkohol": 0, "teenused": 0, "kodu": 0, "muu": 0}
+for item in data["items"]:
+    items[item["category"]] += item["amount"]
+
+today = date.today()
+def esmapaev(täna):
+    esmaspäev = täna - timedelta(today.weekday())
+    return esmaspäev
+
+##esmaspäev(today)
+    
 def total(items):
-    total = 0 
+    total = 0
     for key in items:
         if key != "id" and key != "userid":
             total += items[key]
     protsent(total)
-    
 
 def summa(liidetav):
     global items
     rahakast = sisestatavraha.get()
-    items[liidetav] += float(rahakast)
-    print(items)                                       ##KONRTOLL
+    items[liidetav] += float(rahakast) * 100 
+    headers = {"content-type": "application/json"}
+    payload = {"category": liidetav, "amount": int(rahakast) * 100}
+    r = requests.post("http://ssbudgeting.herokuapp.com/api/v1.0/items", headers=headers, data=json.dumps(payload), auth=("sten", "pass"))
+    print(items)                                       ##KONTROLL
     total(items)
     sildid[liidetav]["text"] = items[liidetav]
     
@@ -48,6 +71,7 @@ def protsent(total):
     tahvel.create_arc( kaarealumine, kaarealumine,kaareülemine,kaareülemine, start = algus, extent = spordiprotsent, fill = "#0CFAD2", outline = "#0CFAD2")
     algus += spordiprotsent
     tahvel.create_arc( kaarealumine, kaarealumine,kaareülemine,kaareülemine, start = algus, extent = transpordiprotsent, fill = "#0D089E", outline = "#0D089E")
+
     algus += transpordiprotsent
     tahvel.create_arc( kaarealumine, kaarealumine,kaareülemine,kaareülemine, start = algus, extent = restoraniprotsent, fill = "#FCFC47", outline = "#FCFC47")
     algus += restoraniprotsent
@@ -60,9 +84,10 @@ def protsent(total):
     tahvel.create_arc( kaarealumine, kaarealumine,kaareülemine,kaareülemine, start = algus, extent = koduprotsent, fill = "#C78212", outline = "#C78212")
     algus += koduprotsent
     tahvel.create_arc( kaarealumine, kaarealumine,kaareülemine,kaareülemine, start = algus, extent = muuprotsent, fill = "#0095FF", outline = "#0095FF")
+
     #KESKOSA
     tahvel.create_oval(üleminenurk, üleminenurk, aluminenurk, aluminenurk, fill = "white", outline = "white")
-    kulutused = tahvel.create_text(kõrgus//2,laius//2, font = suur_suur_font, text = total)
+    kulutused = tahvel.create_text(kõrgus//2,laius//2, font = suur_suur_font, text = round(total / 100, 2))
 
 ##########################################################################################################
 
@@ -90,59 +115,59 @@ suur_suur_font= font.Font(family = "Microsoft JhengHei Light", size = 40)
 
 #LABELID
 taust = "white"
-toiduainedkokku = ttk.Label(raam, text = toiduained, font =väike_font)
+toiduainedkokku = ttk.Label(raam, text = round(toiduained / 100, 2), font =väike_font)
 sildid["toiduained"] = toiduainedkokku
 toiduainedkokku.grid(column= 1, row = 1)
 toiduainedkokku.config(background = taust)
 
-transportkokku = ttk.Label(raam, text = transport, font = väike_font)
+transportkokku = ttk.Label(raam, text = round(transport / 100, 2), font = väike_font)
 sildid["transport"] = transportkokku
 transportkokku.grid(column=1, row=2)
 transportkokku.config(background = taust)
 
-restoransööminekokku = ttk.Label(raam, text = restoran, font = väike_font)
+restoransööminekokku = ttk.Label(raam, text = round(restoran / 100, 2), font = väike_font)
 sildid["restoran"] = restoransööminekokku
 restoransööminekokku.grid(column=1, row=3)
 restoransööminekokku.config(background = taust)
 
-kodukokku = ttk.Label(raam, text = kodu, font = väike_font)
+kodukokku = ttk.Label(raam, text = round(kodu / 100, 2), font = väike_font)
 sildid["kodu"] = kodukokku
 kodukokku.grid(column=1, row=4)
 kodukokku.config(background = taust)
 
-sportkokku = ttk.Label(raam, text = sport, font = väike_font)
+sportkokku = ttk.Label(raam, text = round(sport / 100, 2), font = väike_font)
 sildid["sport"] = sportkokku
 sportkokku.grid(column=1, row=5)
 sportkokku.config(background = taust)
 
-teenusedkokku = ttk.Label(raam, text = teenused, font = väike_font)
+teenusedkokku = ttk.Label(raam, text = round(teenused / 100, 2), font = väike_font)
 sildid["teenused"] = teenusedkokku
 teenusedkokku.grid(column=1, row=6)
 teenusedkokku.config(background = taust)
 
-alkoholkokku = ttk.Label(raam, text = alkohol, font = väike_font)
+alkoholkokku = ttk.Label(raam, text = round(alkohol / 100, 2), font = väike_font)
 sildid["alkohol"] = alkoholkokku
 alkoholkokku.grid(column=1, row=7)
 alkoholkokku.config(background = taust)
 
-meelelahutuskokku = ttk.Label(raam, text = meelelahutus, font = väike_font)
+meelelahutuskokku = ttk.Label(raam, text = round(meelelahutus / 100, 2), font = väike_font)
 sildid["meelelahutus"] = meelelahutuskokku
 meelelahutuskokku.grid(column=1, row=8)
 meelelahutuskokku.config(background = taust)
 
-riidedkokku = ttk.Label(raam, text = riided, font = väike_font)
+riidedkokku = ttk.Label(raam, text = round(riided / 100, 2), font = väike_font)
 sildid["riided"] = riidedkokku
 riidedkokku.grid(column=1, row=9)
 riidedkokku.config(background = taust)
 
-muukokku = ttk.Label(raam, text = muu, font = väike_font)
+muukokku = ttk.Label(raam, text = round(muu / 100, 2), font = väike_font)
 sildid["muu"] = muukokku
 muukokku.grid(column=1, row=10)
 muukokku.config(background = taust)
 
 ## RAHAKAST
 sisestatavraha = ttk.Entry(raam)
-sisestatavraha.grid(column=0, row=11, padx=5, pady=5, sticky=(W,S,E), columnspan = 3)
+sisestatavraha.grid(column=0, row=11, padx=5, pady=5, sticky=(W,S,E), columnspan = 4)
 raam.columnconfigure(0, weight = 1)
 raam.rowconfigure(11, weight = 1)
 
@@ -216,6 +241,8 @@ nupp10 = ttk.Button(raam, text="muu", command = muuliitmine, image = muupilt)
 nupp10.grid(column = 0, row = 10, padx=5, pady=5)
 raam.columnconfigure(0, weight = 1)
 raam.rowconfigure(10, weight = 1)
+
+
 
 ##TAHVEL
 kõrgus = 800
