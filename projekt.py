@@ -21,15 +21,39 @@ for item in data["items"]:
     items[item["category"]] += item["amount"]
 
 today = date.today()
-def esmapaev(täna):
+def esmaspäev(täna):
     esmaspäev = täna - timedelta(today.weekday())
-    return esmaspäev
+    return "-".join(str(esmaspäev).split("-")[::-1])
 
+nädalaalgus = esmaspäev(today)
+def seenädal():
+    nädalaandmed = requests.get("http://ssbudgeting.herokuapp.com/api/v1.0/users/1/items?from="+ nädalaalgus +"&to="+ kuupäev, auth=("sten", "pass"))
+    nädalaanmedDict = nädalaandmed.json()
 
-##esmaspäev(today)
+    items =  {"toiduained": 0, "riided": 0, "sport": 0, "transport": 0, "restoran": 0, "meelelahutus": 0, "alkohol": 0, "teenused": 0, "kodu": 0, "muu": 0}
+    for item in nädalaanmedDict["items"]:
+        items[item["category"]] += item["amount"]
 
+def seekuu():
+    kuunumber = str(datetime.utcnow().date().month).rjust(2, "0")
+    aastanumber = datetime.utcnow().date().year
+    kuuandmed =requests.get("http://ssbudgeting.herokuapp.com/api/v1.0/users/1/items?from=01-"+str(kuunumber)+"-"+str(aastanumber) +"&to="+ str(kuupäev), auth=("sten", "pass"))
+    kuuandmedDict = kuuandmed.json()
+
+    items =  {"toiduained": 0, "riided": 0, "sport": 0, "transport": 0, "restoran": 0, "meelelahutus": 0, "alkohol": 0, "teenused": 0, "kodu": 0, "muu": 0}
+    for item in kuuandmedDict["items"]:
+        items[item["category"]] += item["amount"]
+
+def kokku():
+    kuupäev = "-".join(str(datetime.utcnow().date()).split("-")[::-1]) ## (dd,mm,yyyy)
+    r = requests.get("http://ssbudgeting.herokuapp.com/api/v1.0/users/1/items", auth=("sten", "pass"))
+    data = r.json()
+
+    items =  {"toiduained": 0, "riided": 0, "sport": 0, "transport": 0, "restoran": 0, "meelelahutus": 0, "alkohol": 0, "teenused": 0, "kodu": 0, "muu": 0}
+    for item in data["items"]:
+        items[item["category"]] += item["amount"]
     
-    
+
 def total(items):
     total = 0
     for key in items:
@@ -170,7 +194,7 @@ muukokku.config(background = taust)
 
 ## RAHAKAST
 sisestatavraha = ttk.Entry(raam)
-sisestatavraha.grid(column=0, row=11, padx=5, pady=5, sticky=(W,S,E), columnspan = 4)
+sisestatavraha.grid(column=0, row=11, padx=5, pady=5, sticky=(W,S,E), columnspan = 5)
 raam.columnconfigure(0, weight = 1)
 raam.rowconfigure(11, weight = 1)
 
@@ -245,13 +269,27 @@ nupp10.grid(column = 0, row = 10, padx=5, pady=5)
 raam.columnconfigure(0, weight = 1)
 raam.rowconfigure(10, weight = 1)
 
+nädalanupp = ttk.Button(raam, text= "See nädal", command = seenädal)
+nädalanupp.grid(column = 4, row = 11, padx = 5, pady = 5,sticky = (N,W,S,E))
+raam.columnconfigure(4, weight = 1)
+raam.rowconfigure(11, weight = 1)
+
+kuunupp = ttk.Button(raam, text = "See kuu", command = seekuu)
+kuunupp.grid(column = 5, row = 11, padx = 5, pady = 5, sticky = (N,W,S,E))
+raam.columnconfigure(5, weight = 1)
+raam.rowconfigure(11, weight = 1)
+
+kokkunupp = ttk.Button(raam, text = "Kokku", command = kokku)
+kokkunupp.grid(column = 6, row = 11, padx = 5, pady = 5, sticky = (N,W,S,E))
+raam.columnconfigure(6, weight = 1)
+raam.rowconfigure(11, weight = 1)
 
 
 ##TAHVEL
 kõrgus = 800
 laius = 800
 tahvel = Canvas(raam, background = "white", height = kõrgus, width= laius)
-tahvel.grid(column = 2, row = 1, padx= 5, pady=5, columnspan = 2, rowspan = 10, sticky = (N, S , W ,E))
+tahvel.grid(column = 2, row = 1, padx= 5, pady=5, columnspan = 5, rowspan = 10, sticky = (N, S , W ,E))
 
 #KESKOSA
 diameeter = kõrgus - 200
