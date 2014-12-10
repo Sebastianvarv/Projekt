@@ -25,7 +25,10 @@ def esmapaev(täna):
     esmaspäev = täna - timedelta(today.weekday())
     return esmaspäev
 
+
 ##esmaspäev(today)
+
+    
     
 def total(items):
     total = 0
@@ -37,13 +40,13 @@ def total(items):
 def summa(liidetav):
     global items
     rahakast = sisestatavraha.get()
-    items[liidetav] += float(rahakast) * 100 
+    items[liidetav] += float(rahakast) * 100
     headers = {"content-type": "application/json"}
     payload = {"category": liidetav, "amount": int(rahakast) * 100}
     r = requests.post("http://ssbudgeting.herokuapp.com/api/v1.0/items", headers=headers, data=json.dumps(payload), auth=("sten", "pass"))
     print(items)                                       ##KONTROLL
     total(items)
-    sildid[liidetav]["text"] = items[liidetav]
+    sildid[liidetav]["text"] = items[liidetav] /100
     
     
 def protsent(total):
@@ -64,7 +67,7 @@ def protsent(total):
     kaarealumine = 20
     kaareülemine = kõrgus - kaarealumine
     algus = 0
-    tahvel.create_arc(kaarealumine,kaarealumine,kaareülemine,kaareülemine, start = algus, extent =toiduaineprotsent , fill = "#EB6B10", outline = "#EB6B10")
+    tahvel.create_arc(kaarealumine,kaarealumine,kaareülemine,kaareülemine, start = algus, extent =toiduaineprotsent , fill = "orange", outline = "#EB6B10")
     algus += toiduaineprotsent
     tahvel.create_arc( kaarealumine, kaarealumine,kaareülemine,kaareülemine, start = algus, extent = riieteprotsent, fill = "#C6FA0C", outline = "#C6FA0C")
     algus += riieteprotsent
