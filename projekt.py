@@ -93,14 +93,13 @@ def protsent(total):
     kaarealumine = 20
     kaareülemine = kõrgus - kaarealumine
     algus = 0
-    tahvel.create_arc(kaarealumine,kaarealumine,kaareülemine,kaareülemine, start = algus, extent =toiduaineprotsent , fill = "orange", outline = "#EB6B10")
+    tahvel.create_arc(kaarealumine,kaarealumine,kaareülemine,kaareülemine, start = algus, extent =toiduaineprotsent , fill = "#F54900", outline = "#F54900")
     algus += toiduaineprotsent
     tahvel.create_arc( kaarealumine, kaarealumine,kaareülemine,kaareülemine, start = algus, extent = riieteprotsent, fill = "#C6FA0C", outline = "#C6FA0C")
     algus += riieteprotsent
     tahvel.create_arc( kaarealumine, kaarealumine,kaareülemine,kaareülemine, start = algus, extent = spordiprotsent, fill = "#0CFAD2", outline = "#0CFAD2")
     algus += spordiprotsent
     tahvel.create_arc( kaarealumine, kaarealumine,kaareülemine,kaareülemine, start = algus, extent = transpordiprotsent, fill = "#0D089E", outline = "#0D089E")
-
     algus += transpordiprotsent
     tahvel.create_arc( kaarealumine, kaarealumine,kaareülemine,kaareülemine, start = algus, extent = restoraniprotsent, fill = "#FCFC47", outline = "#FCFC47")
     algus += restoraniprotsent
@@ -110,7 +109,7 @@ def protsent(total):
     algus += alkoholiprotsent
     tahvel.create_arc( kaarealumine, kaarealumine,kaareülemine,kaareülemine, start = algus, extent = teenusteprotsent, fill = "#8A059C", outline = "#8A059C")
     algus += teenusteprotsent
-    tahvel.create_arc( kaarealumine, kaarealumine,kaareülemine,kaareülemine, start = algus, extent = koduprotsent, fill = "#C78212", outline = "#C78212")
+    tahvel.create_arc( kaarealumine, kaarealumine,kaareülemine,kaareülemine, start = algus, extent = koduprotsent, fill = "#B57010", outline = "#B57010")
     algus += koduprotsent
     tahvel.create_arc( kaarealumine, kaarealumine,kaareülemine,kaareülemine, start = algus, extent = muuprotsent, fill = "#0095FF", outline = "#0095FF")
 
