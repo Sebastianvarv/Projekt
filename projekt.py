@@ -8,7 +8,9 @@ import json
 from datetime import datetime
 from datetime import timedelta
 from datetime import date
+import os
 
+failiAsukoht = os.path.dirname(os.path.abspath("projekt.py"))
 
 kuupäev = "-".join(str(datetime.utcnow().date()).split("-")[::-1]) ## (dd,mm,yyyy)
 r = requests.get("http://ssbudgeting.herokuapp.com/api/v1.0/users/1/items", auth=("sten", "pass"))
@@ -37,7 +39,7 @@ def seenädal():
 def seekuu():
     kuunumber = str(datetime.utcnow().date().month).rjust(2, "0")
     aastanumber = datetime.utcnow().date().year
-    kuuandmed =requests.get("http://ssbudgeting.herokuapp.com/api/v1.0/users/1/items?from=01-"+str(kuunumber)+"-"+str(aastanumber) +"&to="+ str(kuupäev), auth=("sten", "pass"))
+    kuuandmed =requests.get("http://ssbudgeting.herokuapp.com/api/v1.0/users/1/items?from=01-"+str(kuunumber)+"-"+str(aastanumber)+"&to="+ str(kuupäev), auth=("sten", "pass"))
     kuuandmedDict = kuuandmed.json()
 
     items =  {"toiduained": 0, "riided": 0, "sport": 0, "transport": 0, "restoran": 0, "meelelahutus": 0, "alkohol": 0, "teenused": 0, "kodu": 0, "muu": 0}
@@ -199,70 +201,70 @@ raam.columnconfigure(0, weight = 1)
 raam.rowconfigure(11, weight = 1)
 
 ## NUPUD
-toidupilt = PhotoImage(file = "C:/Users/Sebastian/Documents/Kool/Programmeerimine/Projekt/ikoonid/Toit_80.gif")
+toidupilt = PhotoImage(file = failiAsukoht + "/ikoonid/Toit_80.gif")
 toiduliitmine = partial(summa, "toiduained")
 nupp1 = ttk.Button(raam, text="toiduained",command = toiduliitmine, image = toidupilt)
 nupp1.grid(column = 0, row = 1, padx=5, pady=5)
 raam.columnconfigure(0, weight = 1)
 raam.rowconfigure(1, weight = 1)
 
-autopilt = PhotoImage(file = "C:/Users/Sebastian/Documents/Kool/Programmeerimine/Projekt/ikoonid/auto_80.gif")
+autopilt = PhotoImage(file = failiAsukoht + "/ikoonid/auto_80.gif")
 transpordiliitmine = partial(summa, "transport")
 nupp2 = ttk.Button(raam, text="transport", command = transpordiliitmine, image = autopilt)
 nupp2.grid(column = 0, row = 2, padx=5, pady=5)
 raam.columnconfigure(0, weight = 1)
 raam.rowconfigure(2, weight = 1)
 
-restoranipilt = PhotoImage(file = "C:/Users/Sebastian/Documents/Kool/Programmeerimine/Projekt/ikoonid/Restoran_80.gif")
+restoranipilt = PhotoImage(file = failiAsukoht + "/ikoonid/Restoran_80.gif")
 söögiliitmine = partial(summa, "restoran")
 nupp3 = ttk.Button(raam, text="väljas söömine", command = söögiliitmine, image = restoranipilt)
 nupp3.grid(column = 0, row = 3, padx=5, pady=5)
 raam.columnconfigure(0, weight = 1)
 raam.rowconfigure(3, weight = 1)
 
-kodupilt = PhotoImage(file = "C:/Users/Sebastian/Documents/Kool/Programmeerimine/Projekt/ikoonid/kodu_80.gif")
+kodupilt = PhotoImage(file = failiAsukoht + "/ikoonid/kodu_80.gif")
 koduliitmine = partial(summa, "kodu")
 nupp4 = ttk.Button(raam, command=koduliitmine, image = kodupilt)   
 nupp4.grid(column = 0, row = 4, padx=5, pady=5)
 raam.columnconfigure(0, weight = 1)
 raam.rowconfigure(4, weight = 1)
 
-spordipilt = PhotoImage(file = "C:/Users/Sebastian/Documents/Kool/Programmeerimine/Projekt/ikoonid/sport_80.gif")
+spordipilt = PhotoImage(file = failiAsukoht + "/ikoonid/sport_80.gif")
 spordiliitmine = partial(summa, "sport")
 nupp5 = ttk.Button(raam, text="sport", command = spordiliitmine, image = spordipilt)
 nupp5.grid(column = 0, row = 5, padx=5, pady=5)
 raam.columnconfigure(0, weight = 1)
 raam.rowconfigure(5, weight = 1)
 
-teenustepilt = PhotoImage(file = "C:/Users/Sebastian/Documents/Kool/Programmeerimine/Projekt/ikoonid/teenused_80.gif")
+teenustepilt = PhotoImage(file = failiAsukoht + "/ikoonid/teenused_80.gif")
 teenusteliitmine = partial(summa, "teenused")
 nupp6 = ttk.Button(raam, text="teenused", command = teenusteliitmine, image = teenustepilt)
 nupp6.grid(column = 0, row = 6, padx=5, pady=5)
 raam.columnconfigure(0, weight = 1)
 raam.rowconfigure(6, weight = 1)
 
-alkoholipilt = PhotoImage(file = "C:/Users/Sebastian/Documents/Kool/Programmeerimine/Projekt/ikoonid/Alkohol_80.gif")
+alkoholipilt = PhotoImage(file = failiAsukoht + "/ikoonid/Alkohol_80.gif")
 alkoholiliitmine = partial(summa, "alkohol")
 nupp7 = ttk.Button(raam, text="alkohol", command = alkoholiliitmine, image = alkoholipilt)
 nupp7.grid(column = 0, row = 7, padx=5, pady=5)
 raam.columnconfigure(0, weight = 1)
 raam.rowconfigure(7, weight = 1)
 
-meelelahutuspilt = PhotoImage(file = "C:/Users/Sebastian/Documents/Kool/Programmeerimine/Projekt/ikoonid/Meelelahutus_80.gif")
+meelelahutuspilt = PhotoImage(file = failiAsukoht + "/ikoonid/Meelelahutus_80.gif")
 meelelahutuseliitmine = partial(summa, "meelelahutus")
 nupp8 = ttk.Button(raam, text="meelelahutus", command = meelelahutuseliitmine, image = meelelahutuspilt)
 nupp8.grid(column = 0, row = 8, padx=5, pady=5)
 raam.columnconfigure(0, weight = 1)
 raam.rowconfigure(8, weight = 1)
 
-riietepilt = PhotoImage(file = "C:/Users/Sebastian/Documents/Kool/Programmeerimine/Projekt/ikoonid/Riided_80.gif")
+riietepilt = PhotoImage(file = failiAsukoht + "/ikoonid/Riided_80.gif")
 riieteliitmine = partial(summa, "riided")
 nupp9 = ttk.Button(raam, text="riided", command = riieteliitmine, image = riietepilt)
 nupp9.grid(column = 0, row = 9, padx=5, pady=5)
 raam.columnconfigure(0, weight = 1)
 raam.rowconfigure(9, weight = 1)
 
-muupilt = PhotoImage(file = "C:/Users/Sebastian/Documents/Kool/Programmeerimine/Projekt/ikoonid/muu_80.gif")
+muupilt = PhotoImage(file = failiAsukoht + "/ikoonid/muu_80.gif")
 muuliitmine = partial(summa, "muu")
 nupp10 = ttk.Button(raam, text="muu", command = muuliitmine, image = muupilt)
 nupp10.grid(column = 0, row = 10, padx=5, pady=5)
