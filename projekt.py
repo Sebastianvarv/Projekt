@@ -297,30 +297,6 @@ diameeter = kõrgus - 200
 üleminenurk = int(tahvel["width"])/2 - diameeter/2
 aluminenurk = int(tahvel["width"])/2 + diameeter/2
 
-
-
-
-##tahvel.create_oval(üleminenurk, üleminenurk, aluminenurk, aluminenurk, fill = "white")
-##
-##kulutused = tahvel.create_text(400,400, font = suur_font)
-
-
-##toiduained_id = tahvel.create_text(text = str(toiduained))
-##toiduained.id.grid(column = 1, row = 1)
-
-##p1 = image.open("porgand.jpeg")
-##foto1 = imageTk.PhotoImage(image1)
-##
-##button1 = tk.Button(raam, compound=tk.TOP, width=250, height=250, image=foto1, bg = "blue")
-##button1.grid(column=1 , row = 1, padx = 5 , pady=5, sticky=(N, S , W, E))
-
-##totalsilt = ttk.Label(raam, text = "Total: ", font = suur_font)
-##totalsilt.grid( column=1, row=0, padx= 5, pady= 5, sticky= (N))
-##totalsilt.config(background = taust)
-##
-##totalkokku = ttk.Label(raam, font=suur_font)
-##totalkokku.grid(column = 2, row = 0, padx=5, pady=5, sticky= (N))
-##totalkokku.config(background = taust)
 total(items)
 raam.mainloop()
 
